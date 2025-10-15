@@ -1,0 +1,117 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"  // Changed from sqlite for production
+  url      = env("DATABASE_URL")
+}
+
+enum ProposalStatus {
+  DRAFT
+  UNDER_REVIEW
+  VERIFIED
+  FUNDING
+  EXECUTING
+  COMPLETED
+  REJECTED
+}
+
+enum PledgeStatus {
+  ACTIVE
+  CANCELED
+  FAILED
+}
+
+enum Tier {
+  TIER_5
+  TIER_10
+  TIER_20
+  TIER_100
+}
+
+// Waitlist for launch signups
+model Waitlist {
+  id        String   @id @default(cuid())
+  email     String   @unique
+  name      String
+  interest  String?  // "supporter", "creator", "both"
+  source    String?  // which page they signed up from
+  createdAt DateTime @default(now())
+}
+
+// Anonymous page view analytics
+model PageView {
+  id        String   @id @default(cuid())
+  page      String
+  count     Int      @default(1)
+  date      DateTime @default(now())
+
+  @@unique([page, date])
+}
+
+// Demo proposal model (no user association)
+model Proposal {
+  id           String         @id @default(cuid())
+  title        String
+  slug         String         @unique
+  summary      String
+  body         String
+  location     String         // e.g., "United States"
+  targetAmount Int
+  status       ProposalStatus @default(UNDER_REVIEW)
+  pledges      Pledge[]
+  updates      Update[]
+  comments     Comment[]
+  createdAt    DateTime       @default(now())
+  updatedAt    DateTime       @updatedAt
+}
+
+model Pledge {
+  id             String       @id @default(cuid())
+  proposalId     String
+  proposal       Proposal     @relation(fields: [proposalId], references: [id])
+  email          String
+  amount         Int          // in cents
+  tier           Tier
+  weight         Int          // voting/comment ranking weight
+  status         PledgeStatus @default(ACTIVE)
+  stripeCustomer String?
+  stripeSubId    String?
+  managementToken String?     @unique // for email-based management
+  createdAt      DateTime     @default(now())
+  updatedAt      DateTime     @updatedAt
+  comments       Comment[]
+}
+
+model Update {
+  id         String   @id @default(cuid())
+  proposalId String
+  proposal   Proposal @relation(fields: [proposalId], references: [id])
+  title      String
+  content    String
+  type       String   // "milestone", "receipt", "disbursement"
+  createdAt  DateTime @default(now())
+}
+
+model Comment {
+  id         String   @id @default(cuid())
+  proposalId String
+  proposal   Proposal @relation(fields: [proposalId], references: [id])
+  pledgeId   String
+  pledge     Pledge   @relation(fields: [pledgeId], references: [id])
+  content    String
+  createdAt  DateTime @default(now())
+}
+
+model BenchmarkNotification {
+  id         String   @id @default(cuid())
+  proposalId String
+  amount     Int      // MRR amount reached
+  sentAt     DateTime @default(now())
+
+  @@unique([proposalId, amount])
+}

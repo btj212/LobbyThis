@@ -1,26 +1,104 @@
 @import "tailwindcss";
+@plugin "@tailwindcss/typography";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  /* Brand Colors */
+  --navy: #0A1A2F;
+  --white: #FFFFFF;
+  --copper: #C67C3D;
+  --bronze: #D89A55;
+  --slate: #64748B;
+  --offwhite: #F5F6F8;
+  
+  /* Semantic tokens */
+  --background: var(--navy);
+  --foreground: var(--white);
+  --primary: var(--copper);
+  --secondary: var(--bronze);
+  --muted: var(--slate);
+  --card: var(--offwhite);
+  
+  /* Z-index tokens */
+  --z-background: -10;
+  --z-content: 10;
+  --z-nav: 50;
+  --z-modal: 100;
 }
 
 @theme inline {
+  /* Colors */
+  --color-navy: #0A1A2F;
+  --color-white: #FFFFFF;
+  --color-copper: #C67C3D;
+  --color-bronze: #D89A55;
+  --color-slate: #64748B;
+  --color-offwhite: #F5F6F8;
+  
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-primary: var(--primary);
+  --color-secondary: var(--secondary);
+  --color-muted: var(--muted);
+  --color-card: var(--card);
+  
+  /* Fonts */
+  --font-headline: var(--font-space-grotesk);
+  --font-body: var(--font-inter);
+  --font-sans: var(--font-inter);
+  
+  /* Animations */
+  --animate-fade-up: fade-up 0.3s ease-out;
+  --animate-slide-up: slide-up 0.3s ease-out;
+  --animate-scale-in: scale-in 0.2s ease-out;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+@keyframes fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slide-up {
+  from {
+    transform: translateY(100%);
+  }
+  to {
+    transform: translateY(0);
+  }
+}
+
+@keyframes scale-in {
+  from {
+    transform: scale(0.95);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
   }
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-body), system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Base typography */
+html {
+  font-size: 18px;
+  scroll-behavior: smooth;
+}
+
+/* Focus styles */
+:focus-visible {
+  outline: 2px solid var(--copper);
+  outline-offset: 2px;
 }
