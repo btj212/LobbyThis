@@ -37,13 +37,10 @@ export function ProposalGrid({ proposals }: ProposalGridProps) {
           className="text-center mb-16"
         >
           <h2 className="text-4xl sm:text-5xl font-bold text-white mb-6 font-[family-name:var(--font-space-grotesk)]">
-            Demo Movements
+            Trending Movements
           </h2>
           <p className="text-xl text-slate max-w-3xl mx-auto mb-4">
             Examples of the kinds of causes you'll be able to support when we launch
-          </p>
-          <p className="text-sm text-copper">
-            These are demonstration proposals to show how the platform will work
           </p>
         </motion.div>
 

@@ -45,7 +45,7 @@ async function getHomeData() {
     orderBy: {
       createdAt: 'desc'
     },
-    take: 8
+    take: 2
   })
 
   // Calculate MRR for each proposal and total
