@@ -1,10 +1,14 @@
 "use client"
 
+import { useState } from "react"
 import Link from "next/link"
-import { motion } from "framer-motion"
+import { motion, AnimatePresence } from "framer-motion"
+import { Menu, X } from "lucide-react"
 import { WaitlistCTA } from "@/components/waitlist-cta"
 
 export function NavBar() {
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
+
   return (
     <motion.nav 
       initial={{ y: -100 }}
@@ -15,7 +19,7 @@ export function NavBar() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
-          <Link href="/" className="flex items-center group">
+          <Link href="/" className="flex items-center group" onClick={() => setMobileMenuOpen(false)}>
             <h1 className="text-2xl font-bold tracking-tight font-[family-name:var(--font-space-grotesk)]">
               <span className="text-white group-hover:text-white/90 transition-colors">
                 LOBBY
@@ -26,7 +30,7 @@ export function NavBar() {
             </h1>
           </Link>
 
-          {/* Navigation Links */}
+          {/* Desktop Navigation Links */}
           <div className="hidden md:flex items-center space-x-8">
             <Link 
               href="/#how-it-works" 
@@ -42,7 +46,7 @@ export function NavBar() {
             </Link>
           </div>
 
-          {/* CTA Button */}
+          {/* Desktop CTA Button */}
           <div className="hidden md:block">
             <WaitlistCTA 
               source="navbar"
@@ -51,13 +55,55 @@ export function NavBar() {
           </div>
 
           {/* Mobile menu button */}
-          <button className="md:hidden text-white p-2">
-            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
-            </svg>
+          <button 
+            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+            className="md:hidden text-white p-2 hover:bg-white/10 rounded-lg transition-colors touch-manipulation"
+            aria-label="Toggle menu"
+          >
+            {mobileMenuOpen ? (
+              <X className="w-6 h-6" />
+            ) : (
+              <Menu className="w-6 h-6" />
+            )}
           </button>
         </div>
       </div>
+
+      {/* Mobile Menu */}
+      <AnimatePresence>
+        {mobileMenuOpen && (
+          <motion.div
+            initial={{ opacity: 0, height: 0 }}
+            animate={{ opacity: 1, height: "auto" }}
+            exit={{ opacity: 0, height: 0 }}
+            transition={{ duration: 0.2 }}
+            className="md:hidden bg-navy border-t border-slate/10 overflow-hidden"
+          >
+            <div className="px-4 py-4 space-y-3">
+              <Link 
+                href="/#how-it-works" 
+                onClick={() => setMobileMenuOpen(false)}
+                className="block text-white/80 hover:text-white text-base font-medium py-3 px-4 rounded-lg hover:bg-white/5 transition-colors touch-manipulation"
+              >
+                How It Works
+              </Link>
+              <Link 
+                href="/proposals" 
+                onClick={() => setMobileMenuOpen(false)}
+                className="block text-white/80 hover:text-white text-base font-medium py-3 px-4 rounded-lg hover:bg-white/5 transition-colors touch-manipulation"
+              >
+                Browse Movements
+              </Link>
+              <div className="pt-2">
+                <WaitlistCTA 
+                  source="navbar-mobile"
+                  className="w-full px-6 py-3 bg-gradient-to-r from-copper to-bronze text-white font-semibold rounded-lg hover:shadow-lg hover:shadow-copper/20 transition-all duration-200 text-center touch-manipulation"
+                />
+              </div>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </motion.nav>
   )
 }
