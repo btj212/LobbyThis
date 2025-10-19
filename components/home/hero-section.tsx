@@ -69,7 +69,7 @@ export function HeroSection({ totalMRR }: HeroSectionProps) {
           className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-white mb-6 font-[family-name:var(--font-space-grotesk)] leading-tight"
         >
           The first consumer marketplace for{" "}
-          <span className="bg-gradient-to-r from-copper to-bronze bg-clip-text text-transparent">
+          <span className="bg-gradient-to-r from-copper to-bronze bg-clip-text text-transparent whitespace-nowrap">
             political influence
           </span>
         </motion.h1>
