@@ -1,4 +1,4 @@
-import { PrismaClient } from '@prisma/client'
+import { PrismaClient, Tier } from '@prisma/client'
 
 const prisma = new PrismaClient()
 
@@ -494,11 +494,11 @@ We need resources to counter misinformation and tell the truth.
 
     // Distribution: mostly $5-20/month, some $50-100, a few larger
     const tiers = [
-      { amount: 500, tier: 'TIER_5', weight: 1, count: Math.floor(targetMRR * 0.4 / 500) }, // 40% at $5
-      { amount: 1000, tier: 'TIER_10', weight: 1, count: Math.floor(targetMRR * 0.3 / 1000) }, // 30% at $10
-      { amount: 2000, tier: 'TIER_20', weight: 5, count: Math.floor(targetMRR * 0.2 / 2000) }, // 20% at $20
-      { amount: 10000, tier: 'TIER_100', weight: 20, count: Math.floor(targetMRR * 0.08 / 10000) }, // 8% at $100
-      { amount: 50000, tier: 'TIER_100', weight: 20, count: Math.floor(targetMRR * 0.02 / 50000) }, // 2% at $500
+      { amount: 500, tier: Tier.TIER_5, weight: 1, count: Math.floor(targetMRR * 0.4 / 500) }, // 40% at $5
+      { amount: 1000, tier: Tier.TIER_10, weight: 1, count: Math.floor(targetMRR * 0.3 / 1000) }, // 30% at $10
+      { amount: 2000, tier: Tier.TIER_20, weight: 5, count: Math.floor(targetMRR * 0.2 / 2000) }, // 20% at $20
+      { amount: 10000, tier: Tier.TIER_100, weight: 20, count: Math.floor(targetMRR * 0.08 / 10000) }, // 8% at $100
+      { amount: 50000, tier: Tier.TIER_100, weight: 20, count: Math.floor(targetMRR * 0.02 / 50000) }, // 2% at $500
     ]
 
     for (const tier of tiers) {
