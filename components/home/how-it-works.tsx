@@ -12,7 +12,7 @@ const steps = [
   {
     icon: Users,
     title: "Vote on where funds go",
-    description: "Lobbyists & candidates pitch plans. We analyze, members decide.",
+    description: "Organizations & candidates pitch plans. We analyze, members decide.",
   },
   {
     icon: Eye,
