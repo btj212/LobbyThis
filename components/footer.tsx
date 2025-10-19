@@ -13,11 +13,8 @@ export function Footer() {
               <span className="text-white">LOBBY</span>
               <span className="text-copper">THIS</span>
             </h2>
-            <p className="text-slate text-sm max-w-md mb-4">
+            <p className="text-slate text-sm max-w-md">
               A civic crowdfunding platform where citizens write, fund, and transparently execute their own lobbying campaigns.
-            </p>
-            <p className="text-bronze italic font-medium">
-              The people, organized.
             </p>
           </div>
 
