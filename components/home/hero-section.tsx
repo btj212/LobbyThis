@@ -68,9 +68,9 @@ export function HeroSection({ totalMRR }: HeroSectionProps) {
           transition={{ duration: prefersReducedMotion ? 0 : 0.6, delay: prefersReducedMotion ? 0 : 0.1 }}
           className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-white mb-6 font-[family-name:var(--font-space-grotesk)] leading-tight"
         >
-          We're reimagining the lobbying industry to{" "}
+          The first consumer marketplace for{" "}
           <span className="bg-gradient-to-r from-copper to-bronze bg-clip-text text-transparent">
-            crowdfund democracy
+            political influence
           </span>
         </motion.h1>
 
@@ -81,7 +81,7 @@ export function HeroSection({ totalMRR }: HeroSectionProps) {
           transition={{ duration: prefersReducedMotion ? 0 : 0.6, delay: prefersReducedMotion ? 0 : 0.3 }}
           className="text-xl sm:text-2xl text-slate mb-8 max-w-3xl mx-auto"
         >
-          Support the <em className="italic font-semibold">issues</em> you care about most.
+          Support the issue you care about most.
         </motion.p>
 
         {/* Live stat counter */}
