@@ -486,190 +486,69 @@ We need resources to counter misinformation and tell the truth.
 
   console.log('✅ Created sample updates')
 
-  // Create demo pledges for realistic progress bars
-  // Medicare for All: ~45% ($45,000 of $100,000)
-  await prisma.pledge.create({
-    data: {
-      proposalId: medicareProposal.id,
-      email: 'supporter1@example.com',
-      amount: 2000000, // $20,000 in cents
-      tier: 'TIER_100',
-      weight: 20,
-      status: 'ACTIVE',
-    },
-  })
-  await prisma.pledge.create({
-    data: {
-      proposalId: medicareProposal.id,
-      email: 'supporter2@example.com',
-      amount: 1500000, // $15,000
-      tier: 'TIER_100',
-      weight: 20,
-      status: 'ACTIVE',
-    },
-  })
-  await prisma.pledge.create({
-    data: {
-      proposalId: medicareProposal.id,
-      email: 'supporter3@example.com',
-      amount: 1000000, // $10,000
-      tier: 'TIER_100',
-      weight: 20,
-      status: 'ACTIVE',
-    },
-  })
+  // Helper function to create realistic pledges
+  async function createRealisticPledges(proposalId: string, targetMRR: number, baseEmail: string) {
+    const pledges = []
+    let totalAmount = 0
+    let supporterCount = 0
 
-  // Minimum Wage: ~65% ($32,500 of $50,000)
-  await prisma.pledge.create({
-    data: {
-      proposalId: minimumWageProposal.id,
-      email: 'supporter4@example.com',
-      amount: 1500000, // $15,000
-      tier: 'TIER_100',
-      weight: 20,
-      status: 'ACTIVE',
-    },
-  })
-  await prisma.pledge.create({
-    data: {
-      proposalId: minimumWageProposal.id,
-      email: 'supporter5@example.com',
-      amount: 1000000, // $10,000
-      tier: 'TIER_100',
-      weight: 20,
-      status: 'ACTIVE',
-    },
-  })
-  await prisma.pledge.create({
-    data: {
-      proposalId: minimumWageProposal.id,
-      email: 'supporter6@example.com',
-      amount: 750000, // $7,500
-      tier: 'TIER_20',
-      weight: 5,
-      status: 'ACTIVE',
-    },
-  })
+    // Distribution: mostly $5-20/month, some $50-100, a few larger
+    const tiers = [
+      { amount: 500, tier: 'TIER_5', weight: 1, count: Math.floor(targetMRR * 0.4 / 500) }, // 40% at $5
+      { amount: 1000, tier: 'TIER_10', weight: 1, count: Math.floor(targetMRR * 0.3 / 1000) }, // 30% at $10
+      { amount: 2000, tier: 'TIER_20', weight: 5, count: Math.floor(targetMRR * 0.2 / 2000) }, // 20% at $20
+      { amount: 10000, tier: 'TIER_100', weight: 20, count: Math.floor(targetMRR * 0.08 / 10000) }, // 8% at $100
+      { amount: 50000, tier: 'TIER_100', weight: 20, count: Math.floor(targetMRR * 0.02 / 50000) }, // 2% at $500
+    ]
 
-  // Data Privacy: ~30% ($22,500 of $75,000)
-  await prisma.pledge.create({
-    data: {
-      proposalId: dataPrivacyProposal.id,
-      email: 'supporter7@example.com',
-      amount: 1200000, // $12,000
-      tier: 'TIER_100',
-      weight: 20,
-      status: 'ACTIVE',
-    },
-  })
-  await prisma.pledge.create({
-    data: {
-      proposalId: dataPrivacyProposal.id,
-      email: 'supporter8@example.com',
-      amount: 1050000, // $10,500
-      tier: 'TIER_100',
-      weight: 20,
-      status: 'ACTIVE',
-    },
-  })
+    for (const tier of tiers) {
+      for (let i = 0; i < tier.count; i++) {
+        supporterCount++
+        pledges.push(
+          prisma.pledge.create({
+            data: {
+              proposalId,
+              email: `${baseEmail}${supporterCount}@example.com`,
+              amount: tier.amount,
+              tier: tier.tier,
+              weight: tier.weight,
+              status: 'ACTIVE',
+            },
+          })
+        )
+        totalAmount += tier.amount
+      }
+    }
 
-  // Fair Maps: ~52% ($31,200 of $60,000)
-  await prisma.pledge.create({
-    data: {
-      proposalId: fairMapsProposal.id,
-      email: 'supporter9@example.com',
-      amount: 1500000, // $15,000
-      tier: 'TIER_100',
-      weight: 20,
-      status: 'ACTIVE',
-    },
-  })
-  await prisma.pledge.create({
-    data: {
-      proposalId: fairMapsProposal.id,
-      email: 'supporter10@example.com',
-      amount: 1000000, // $10,000
-      tier: 'TIER_100',
-      weight: 20,
-      status: 'ACTIVE',
-    },
-  })
-  await prisma.pledge.create({
-    data: {
-      proposalId: fairMapsProposal.id,
-      email: 'supporter11@example.com',
-      amount: 620000, // $6,200
-      tier: 'TIER_20',
-      weight: 5,
-      status: 'ACTIVE',
-    },
-  })
+    await Promise.all(pledges)
+    return supporterCount
+  }
 
-  // Citizens United: ~25% ($37,500 of $150,000)
-  await prisma.pledge.create({
-    data: {
-      proposalId: citizensUnitedProposal.id,
-      email: 'supporter12@example.com',
-      amount: 2000000, // $20,000
-      tier: 'TIER_100',
-      weight: 20,
-      status: 'ACTIVE',
-    },
-  })
-  await prisma.pledge.create({
-    data: {
-      proposalId: citizensUnitedProposal.id,
-      email: 'supporter13@example.com',
-      amount: 1000000, // $10,000
-      tier: 'TIER_100',
-      weight: 20,
-      status: 'ACTIVE',
-    },
-  })
-  await prisma.pledge.create({
-    data: {
-      proposalId: citizensUnitedProposal.id,
-      email: 'supporter14@example.com',
-      amount: 750000, // $7,500
-      tier: 'TIER_20',
-      weight: 5,
-      status: 'ACTIVE',
-    },
-  })
+  // Medicare for All: ~45% ($45,000 of $100,000) → ~3,600 supporters
+  const medicareCount = await createRealisticPledges(medicareProposal.id, 4500000, 'medicare-supporter')
+  console.log(`✅ Created ${medicareCount} supporters for Medicare for All`)
 
-  // Equal Rights Amendment: ~70% ($56,000 of $80,000)
-  await prisma.pledge.create({
-    data: {
-      proposalId: equalRightsProposal.id,
-      email: 'supporter15@example.com',
-      amount: 2500000, // $25,000
-      tier: 'TIER_100',
-      weight: 20,
-      status: 'ACTIVE',
-    },
-  })
-  await prisma.pledge.create({
-    data: {
-      proposalId: equalRightsProposal.id,
-      email: 'supporter16@example.com',
-      amount: 2000000, // $20,000
-      tier: 'TIER_100',
-      weight: 20,
-      status: 'ACTIVE',
-    },
-  })
-  await prisma.pledge.create({
-    data: {
-      proposalId: equalRightsProposal.id,
-      email: 'supporter17@example.com',
-      amount: 1100000, // $11,000
-      tier: 'TIER_100',
-      weight: 20,
-      status: 'ACTIVE',
-    },
-  })
+  // Minimum Wage: ~65% ($32,500 of $50,000) → ~2,600 supporters
+  const wageCount = await createRealisticPledges(minimumWageProposal.id, 3250000, 'wage-supporter')
+  console.log(`✅ Created ${wageCount} supporters for Minimum Wage`)
 
-  console.log('✅ Created demo pledges with varied progress levels')
+  // Data Privacy: ~30% ($22,500 of $75,000) → ~1,800 supporters
+  const privacyCount = await createRealisticPledges(dataPrivacyProposal.id, 2250000, 'privacy-supporter')
+  console.log(`✅ Created ${privacyCount} supporters for Data Privacy`)
+
+  // Fair Maps: ~52% ($31,200 of $60,000) → ~2,500 supporters
+  const mapsCount = await createRealisticPledges(fairMapsProposal.id, 3120000, 'maps-supporter')
+  console.log(`✅ Created ${mapsCount} supporters for Fair Maps`)
+
+  // Citizens United: ~25% ($37,500 of $150,000) → ~3,000 supporters
+  const citizensCount = await createRealisticPledges(citizensUnitedProposal.id, 3750000, 'citizens-supporter')
+  console.log(`✅ Created ${citizensCount} supporters for Citizens United`)
+
+  // Equal Rights Amendment: ~70% ($56,000 of $80,000) → ~4,500 supporters
+  const eraCount = await createRealisticPledges(equalRightsProposal.id, 5600000, 'era-supporter')
+  console.log(`✅ Created ${eraCount} supporters for Equal Rights Amendment`)
+
+  console.log('✅ Created demo pledges with realistic supporter counts and varied progress levels')
 
   console.log('🎉 Seed completed successfully!')
 }
