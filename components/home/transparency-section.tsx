@@ -8,17 +8,17 @@ const principles = [
   {
     icon: DollarSign,
     title: "Money is speech, spend accordingly",
-    description: "Citizens United isn't going anywhere - we want to use it to empower the people.",
+    description: "Citizens United is here to stay. We're using it.",
   },
   {
     icon: Users,
     title: "Popular ideas should become law",
-    description: "Special interests have stood in the way of radical progress for too long.",
+    description: "Collective financial pressure can make that happen.",
   },
   {
     icon: BarChart3,
     title: "Maximum impact, minimum overhead",
-    description: "We leverage AI-powered analytics to assess maximum dollar impact. No army of expensive lobbyists.",
+    description: "We leverage AI-powered analytics to assess maximum dollar impact for every issue.",
   },
 ]
 
