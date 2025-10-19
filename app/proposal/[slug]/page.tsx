@@ -10,6 +10,21 @@ import { ProposalUpdates } from "@/components/proposal/proposal-updates"
 import { ProposalComments } from "@/components/proposal/proposal-comments"
 import { ShareBar } from "@/components/proposal/share-bar"
 
+function getBaseUrl() {
+  // Try environment variable first
+  if (process.env.NEXT_PUBLIC_SITE_URL) {
+    return process.env.NEXT_PUBLIC_SITE_URL
+  }
+  
+  // For production, use the configured domain
+  if (process.env.VERCEL_URL) {
+    return `https://${process.env.VERCEL_URL}`
+  }
+  
+  // Fallback for local development
+  return 'http://localhost:3000'
+}
+
 async function getProposal(slug: string) {
   const proposal = await prisma.proposal.findUnique({
     where: { slug },
@@ -113,7 +128,7 @@ export async function generateMetadata({
     }
   }
 
-  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000'
+  const siteUrl = getBaseUrl()
   const ogImageUrl = `${siteUrl}/api/og?title=${encodeURIComponent(proposal.title)}&mrr=${proposal.totalMRR}&progress=${proposal.progressPercentage}`
 
   return {
@@ -194,7 +209,7 @@ export default async function ProposalPage({
               <ShareBar
                 title={proposal.title}
                 slug={proposal.slug}
-                url={`${process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000'}/proposal/${proposal.slug}`}
+                url={`${getBaseUrl()}/proposal/${proposal.slug}`}
               />
               
               <ProposalBody
