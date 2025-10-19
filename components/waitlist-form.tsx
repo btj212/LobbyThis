@@ -184,38 +184,40 @@ export function WaitlistForm({ onClose, source = "unknown", inline = false }: Wa
         animate={{ opacity: 1 }}
         exit={{ opacity: 0 }}
         transition={{ duration: 0.2 }}
-        className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4 overflow-y-auto"
+        className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 overflow-y-auto"
         onClick={onClose}
       >
-        <motion.div
-          initial={{ scale: 0.95, opacity: 0, y: 20 }}
-          animate={{ scale: 1, opacity: 1, y: 0 }}
-          exit={{ scale: 0.95, opacity: 0, y: 20 }}
-          transition={{ duration: 0.2, ease: "easeOut" }}
-          onClick={(e) => e.stopPropagation()}
-          className="w-full max-w-md my-8"
-        >
-          <Card className="bg-offwhite relative shadow-2xl">
-            {onClose && (
-              <button
-                onClick={onClose}
-                className="absolute top-4 right-4 z-10 text-slate hover:text-navy transition-colors rounded-full hover:bg-slate/10 p-1.5"
-                aria-label="Close"
-              >
-                <X className="w-5 h-5" />
-              </button>
-            )}
+        <div className="min-h-full flex items-center justify-center p-4 py-8">
+          <motion.div
+            initial={{ scale: 0.95, opacity: 0, y: 20 }}
+            animate={{ scale: 1, opacity: 1, y: 0 }}
+            exit={{ scale: 0.95, opacity: 0, y: 20 }}
+            transition={{ duration: 0.2, ease: "easeOut" }}
+            onClick={(e) => e.stopPropagation()}
+            className="w-full max-w-md"
+          >
+            <Card className="bg-offwhite relative shadow-2xl max-h-[90vh] overflow-y-auto">
+              {onClose && (
+                <button
+                  onClick={onClose}
+                  className="sticky top-4 right-4 z-10 float-right text-slate hover:text-navy transition-colors rounded-full hover:bg-slate/10 p-1.5 bg-offwhite/80 backdrop-blur-sm"
+                  aria-label="Close"
+                >
+                  <X className="w-5 h-5" />
+                </button>
+              )}
 
-            <CardHeader className="pr-12">
-              <CardTitle className="text-2xl text-navy">Join the Waitlist</CardTitle>
-              <CardDescription className="text-slate">
-                Be the first to know when we launch. We'll notify you as soon as you can support the causes you care about.
-              </CardDescription>
-            </CardHeader>
+              <CardHeader className="pr-12 clear-both">
+                <CardTitle className="text-2xl text-navy">Join the Waitlist</CardTitle>
+                <CardDescription className="text-slate">
+                  Be the first to know when we launch. We'll notify you as soon as you can support the causes you care about.
+                </CardDescription>
+              </CardHeader>
 
-            <CardContent>{formContent}</CardContent>
-          </Card>
-        </motion.div>
+              <CardContent>{formContent}</CardContent>
+            </Card>
+          </motion.div>
+        </div>
       </motion.div>
     </AnimatePresence>
   )
