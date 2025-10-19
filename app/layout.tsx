@@ -17,14 +17,31 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: "LobbyThis - Crowdfund Democracy",
-  description: "A civic crowdfunding platform where citizens write, fund, and transparently execute their own lobbying campaigns—turning collective wallets into real political power.",
-  keywords: ["lobbying", "civic engagement", "crowdfunding", "democracy", "politics"],
+  title: "LobbyThis - The First Consumer Marketplace for Political Influence",
+  description: "Support the issue you care about most. Join the waitlist for the first platform where citizens pool their resources to fund real political change.",
+  keywords: ["lobbying", "civic engagement", "crowdfunding", "democracy", "politics", "political influence"],
   authors: [{ name: "LobbyThis" }],
+  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || 'https://lobbythis.com'),
   openGraph: {
-    title: "LobbyThis - Crowdfund Democracy",
-    description: "Citizens funding real influence — organized, transparent, unstoppable.",
+    title: "LobbyThis - The First Consumer Marketplace for Political Influence",
+    description: "Support the issue you care about most. Join the waitlist for the first platform where citizens pool their resources to fund real political change.",
     type: "website",
+    url: "https://lobbythis.com",
+    siteName: "LobbyThis",
+    images: [
+      {
+        url: "/og-image.png",
+        width: 1200,
+        height: 630,
+        alt: "LobbyThis - The First Consumer Marketplace for Political Influence",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "LobbyThis - The First Consumer Marketplace for Political Influence",
+    description: "Support the issue you care about most.",
+    images: ["/og-image.png"],
   },
 };
 
