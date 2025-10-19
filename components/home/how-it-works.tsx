@@ -50,9 +50,9 @@ export function HowItWorks() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.6, delay: index * 0.2 }}
-              className="relative"
+              className="relative h-full"
             >
-              <div className="relative bg-white/5 backdrop-blur-sm border border-slate/10 rounded-2xl p-8 hover:bg-white/10 transition-all duration-300">
+              <div className="relative bg-white/5 backdrop-blur-sm border border-slate/10 rounded-2xl p-8 hover:bg-white/10 transition-all duration-300 h-full flex flex-col">
                 {/* Step number */}
                 <div className="absolute -top-4 -left-4 w-12 h-12 bg-gradient-to-r from-copper to-bronze rounded-full flex items-center justify-center text-white font-bold text-xl shadow-lg">
                   {index + 1}
