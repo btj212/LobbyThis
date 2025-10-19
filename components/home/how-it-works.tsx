@@ -7,17 +7,17 @@ const steps = [
   {
     icon: FileText,
     title: "Start a movement",
-    description: "Write a short proposal for change and share it on LobbyThis.",
+    description: "Post a short proposal and invite friends to join your cause.",
   },
   {
     icon: Users,
-    title: "Spread the word",
-    description: "Invite supporters. More backers expands your influence.",
+    title: "Vote on where funds go",
+    description: "Lobbyists, candidates, and super PACs pitch plans; LobbyThis analyzes, subscribers decide.",
   },
   {
     icon: Eye,
-    title: "See the impact",
-    description: "We share clear updates on strategies and actions taken toward your goal.",
+    title: "Track the impact",
+    description: "See where money goes, get clear reports, and redirect funds based on results and new opportunities.",
   },
 ]
 
