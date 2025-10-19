@@ -52,16 +52,11 @@ export function ProposalHeader({
       transition={{ duration: 0.6 }}
       className="bg-offwhite/95 rounded-2xl p-8 shadow-xl"
     >
-      {/* Status and location */}
+      {/* Location and supporters */}
       <div className="flex items-center justify-between mb-4">
-        <div className="flex items-center gap-3">
-          <span className={`px-4 py-1.5 rounded-full text-xs font-semibold uppercase tracking-wider ${statusColors[status]}`}>
-            {statusLabels[status]}
-          </span>
-          <div className="flex items-center gap-1.5 text-slate">
-            <MapPin className="w-4 h-4" />
-            <span className="text-sm">{location}</span>
-          </div>
+        <div className="flex items-center gap-1.5 text-slate">
+          <MapPin className="w-4 h-4" />
+          <span className="text-sm">{location}</span>
         </div>
         <div className="flex items-center gap-2 text-slate">
           <Users className="w-5 h-5" />

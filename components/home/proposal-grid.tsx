@@ -54,16 +54,13 @@ export function ProposalGrid({ proposals }: ProposalGridProps) {
               viewport={{ once: true }}
               transition={{ duration: 0.6, delay: index * 0.2 }}
             >
-              <Card className="h-full bg-offwhite/95 border-slate/20 hover:shadow-xl hover:shadow-copper/10 relative">
-                <div className="absolute top-3 right-3 bg-copper text-white text-xs font-bold uppercase tracking-wider px-2 py-1 rounded">
-                  DEMO
-                </div>
+              <Card className="h-full bg-offwhite/95 border-slate/20 hover:shadow-xl hover:shadow-copper/10">
                 <CardHeader>
                   <div className="flex items-start justify-between mb-2">
                     <span className="text-xs uppercase tracking-wider text-slate bg-slate/10 px-3 py-1 rounded-full">
                       {proposal.location}
                     </span>
-                    <div className="flex items-center gap-1 text-slate mr-16">
+                    <div className="flex items-center gap-1 text-slate">
                       <Users className="w-4 h-4" />
                       <span className="text-sm font-medium">{proposal.supporterCount}</span>
                     </div>
